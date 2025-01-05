@@ -1,6 +1,4 @@
 import socket
-# import ssl
-# from cryptography.fernet import Fernet
 import time
 import datetime
 import sqlite3 #to createe database for keeping records.
@@ -15,21 +13,9 @@ cur.execute('''CREATE TABLE IF NOT EXISTS loggedRecords
                 Client_Port TEXT NOT NULL,
                 Logged_data TEXT NOT NULL)''')
 
-# generating key for encryption.
-# key = Fernet.generate_key()
-# cipher = Fernet(key)
-# print(f"server key:{key.decode()}")
-
 # Server details
 HOST = '172.22.76.81'
 PORT = 5000
-# context = ssl.SSLContext(ssl.PROTOCOL_TLS_SERVER)
-# context.load_cert_chain(certfile='',keyfile='')
-
-# def sending_key (socket1 , message):
-#     key_info = message.encode()
-#     socket1.sendall(key_info)
-#     print("Key info sent successfully!")
 
 def main():
     # Create a server socket
