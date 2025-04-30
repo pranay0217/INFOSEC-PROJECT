@@ -14,8 +14,8 @@ cur.execute('''CREATE TABLE IF NOT EXISTS loggedRecords
                 Logged_data TEXT NOT NULL)''')
 
 # Server details
-HOST = '172.22.76.81'
-PORT = 5000
+HOST = 'server_ipv4_address'
+PORT = server_port
 
 def main():
     # Create a server socket
