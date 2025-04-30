@@ -5,9 +5,9 @@ from scapy.all import sniff, DNS , DNSQR  # For packet sniffing
 import time
 
 # Server details
-SERVER_HOST = "172.22.76.81"
-SERVER_PORT = 5000
-TARGET_WEBSITE = "www.instagram.com" 
+SERVER_HOST = "server_ipv4_address"
+SERVER_PORT = server_port
+TARGET_WEBSITE = "target_website" 
 start_time = time.time()
 duration = 30
 
